@@ -21,6 +21,7 @@ class SearchConsumer(JsonWebsocketConsumer):
         pass
 
     def receive_json(self, content):
+        print(f"[Search websocket] Received a message {content}")
         query = content['query']
 
         # Create a multiprocessing queue to collect the results

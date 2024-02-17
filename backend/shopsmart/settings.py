@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-4(n&r$vu$s$%$(-rv#%l)k41b@a)p%=1m=#@j=9a#n!^&22-=j
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'e2ea-27-147-232-86.ngrok-free.app',
-    '127.0.0.1',
+    '5452-27-147-232-86.ngrok-free.app',
 ]
 
 
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'chatbot',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'shopsmart.urls'
@@ -136,3 +137,8 @@ CHANNEL_LAYERS = {
 }
 
 ASGI_APPLICATION = 'shopsmart.asgi.application'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',  # Allow your frontend URL
+    'http://localhost:3000',  # You may also need to add localhost variations
+]
