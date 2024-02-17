@@ -1,6 +1,8 @@
 from channels.generic.websocket import JsonWebsocketConsumer
 from multiprocessing import Process, Queue
 from .ryans import scrape_ryans
+from .startech import scrape_startech
+from .pickaboo import scrape_pickaboo
 
 def scrape_website(query, website_func, results_queue):
     try:
@@ -26,6 +28,8 @@ class SearchConsumer(JsonWebsocketConsumer):
 
         tasks = [
             Process(target=scrape_website, args=(query, scrape_ryans, results_queue)),
+            Process(target=scrape_website, args=(query, scrape_startech, results_queue)),
+            Process(target=scrape_website, args=(query, scrape_pickaboo, results_queue)),
         ]
 
         for task in tasks:
