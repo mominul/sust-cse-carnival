@@ -60,7 +60,7 @@ const navData = [
     components: [
       {
         name: "Mechanical Keyboard",
-        href: "/products?search=keyboard",
+        href: "?search=keyboard",
         description:
           "A mechanical keyboard is a high-performance keyboard with tactile and audio feedback so accurate it allows you to execute every keystroke with lightning-fast precision.",
         picture:
@@ -147,15 +147,15 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         {navData?.map((nav) => (
-          <NavigationMenuItem className="block sm:block">
+          <NavigationMenuItem key={nav?.name} className="block sm:block">
             <NavigationMenuTrigger className="text-sm  sm:text-base">
               {nav.name}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[250px] gap-3 p-4 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] max-h-[60vh] overflow-y-auto ">
-                {nav?.components?.map((component) => (
+                {nav?.components?.map((component, i) => (
                   <ListItem
-                    key={component.name}
+                    key={i}
                     title={component.name}
                     href={component.href}
                   >
@@ -195,8 +195,8 @@ const ListItem = ({ className, title, children, ...props }) => {
   return (
     <li>
       <NavigationMenuLink>
-        <a
-          //   ref={ref}
+        <Link
+          href={props?.href}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
@@ -207,7 +207,7 @@ const ListItem = ({ className, title, children, ...props }) => {
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );

@@ -3,6 +3,7 @@ import logo from "../../../public/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { NavMenu } from "./Navmenu";
+import { SearchField } from "./SearchBar";
 
 const Header = () => {
   return (
@@ -29,7 +30,9 @@ const Header = () => {
         </div>
 
         {/* right search bar */}
-        <div className="flex justify-end">search bar</div>
+        <div className="flex justify-end">
+          <SearchField />
+        </div>
       </div>
     </div>
   );
