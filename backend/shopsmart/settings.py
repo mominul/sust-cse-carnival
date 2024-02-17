@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'e2ea-27-147-232-86.ngrok-free.app',
+    '127.0.0.1',
 ]
 
 
