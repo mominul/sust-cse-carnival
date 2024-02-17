@@ -108,10 +108,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 // import WebSocket from "ws";
 import { Button } from "../ui/button";
-import WebSocket from "websocket";
+// import WebSocket from "websocket";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+
 import { Input } from "../ui/input";
 
 // const socket = io("http://localhost:3001"); //
@@ -123,16 +125,25 @@ const Socket = () => {
   const [newMessage, setNewMessage] = useState("");
   // const [socket, setSocket] = useState(null);
 
-  const socket = new WebSocket.w3cwebsocket(
-    "ws://400f-27-147-232-86.ngrok-free.app/ws/search/"
-  );
+  // const socket = new WebSocket.w3cwebsocket("ws://127.0.0.1:8000/ws/search/");
+  // const socket = new WebSocket.w3cwebsocket(
+  //   "ws://5452-27-147-232-86.ngrok-free.app/ws/search/"
+  // );
 
   useEffect(() => {
+    const socket = new WebSocket(
+      "wss://5452-27-147-232-86.ngrok-free.app/ws/search/"
+    );
+
     socket.onopen = () => {
       console.log("WebSocket connected");
       // You may send an initial message here if required
       // socket.send(JSON.stringify({ query: "Initial message" }));
     };
+
+    socket.addEventListener("open", (event) => {
+      socket.send("Hello Server!");
+    });
 
     socket.onmessage = (message) => {
       console.log("Received message:", message.data);
@@ -154,11 +165,11 @@ const Socket = () => {
 
   const sendMessage = () => {
     console.log("sending message");
-    socket.send(JSON.stringify({ query: "apple m1" }));
+    socket?.send(JSON.stringify({ query: newMessage }));
     // socket.send(JSON.stringify({ query: newMessage }));
   };
 
-  // console.log("messages", messages);
+  console.log("messages", messages);
 
   return (
     <div className="my-5">
