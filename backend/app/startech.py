@@ -34,9 +34,9 @@ def scrape_startech(query):
 
     for item_id in range(1, total_items):
         try:
-            title = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[2]/h4/a')
-            price = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[2]/div[2]/span')
-            image = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[1]/a/img').get_attribute('src')
+            title = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[3]/h4/a')
+            price = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[3]/div[2]/span[1]')
+            image = driver.find_element(By.XPATH, f'//*[@id="content"]/div[2]/div[{item_id}]/div/div[2]/a/img').get_attribute('src')
             link = title.get_attribute('href')
             
             if (price.text == "TBA" or price.text == "Out Of Stock" or price.text == "Up Coming"):
