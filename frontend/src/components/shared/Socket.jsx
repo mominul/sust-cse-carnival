@@ -141,10 +141,6 @@ const Socket = () => {
       // socket.send(JSON.stringify({ query: "Initial message" }));
     };
 
-    socket.addEventListener("open", (event) => {
-      socket.send("Hello Server!");
-    });
-
     socket.onmessage = (message) => {
       console.log("Received message:", message.data);
 

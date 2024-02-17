@@ -1,6 +1,7 @@
 import { Inter, Ubuntu } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
 
 // const inter = Inter({ subsets: ["latin"] });
 const ubuntu = Ubuntu({ subsets: ["latin"], weight: "400" });
@@ -21,6 +22,8 @@ export default function RootLayout({ children }) {
         <Header />
 
         {children}
+
+        <Footer />
       </body>
     </html>
   );
