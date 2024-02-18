@@ -3,11 +3,14 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 
+import { Toaster } from "@/components/ui/sonner"
+ 
+
 // const inter = Inter({ subsets: ["latin"] });
 const ubuntu = Ubuntu({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
-  title: "Best Deal",
+  title: "Shop Smart",
   description: "Get the best deal on your favorite products.",
 
   // icons: {
@@ -23,7 +26,9 @@ export default function RootLayout({ children }) {
 
         {children}
 
-        <Footer />
+
+<Toaster position='bottom-left' />
+        {/* <Footer /> */}
       </body>
     </html>
   );

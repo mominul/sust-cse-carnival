@@ -9,13 +9,19 @@ const Header = () => {
   return (
     <div className="shadow ">
       <div className="bg-white py-2 flex justify-between items-center container mx-auto px-5">
+       
+      <div>
+          <NavMenu />
+        </div>
+
+       
         {/* left logo part */}
         <div className="flex gap-2 items-center">
           <Link href="/" className="flex items-center">
             <Image
               height={100}
               width={200}
-              className="w-12 sm:w-16"
+              className="w-12 sm:w-20"
               src={logo}
               alt="logo"
             />
@@ -25,14 +31,11 @@ const Header = () => {
 
         {/* middle links */}
 
-        <div>
-          <NavMenu />
-        </div>
-
+        
         {/* right search bar */}
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <SearchField />
-        </div>
+        </div> */}
       </div>
     </div>
   );

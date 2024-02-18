@@ -120,20 +120,24 @@ import { Input } from "../ui/input";
 // const socket = io("ws://4508-27-147-232-86.ngrok-free.app/ws/search/"); //
 // const socket = io("https://socket-io-chat.now.sh"); //
 
-const Socket = () => {
+const Socket = ({handleProducts, message:newMessage, handleSearch}) => {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  // const [newMessage, setNewMessage] = useState("");
+  const [data, setData] = useState([]);
   // const [socket, setSocket] = useState(null);
 
-  // const socket = new WebSocket.w3cwebsocket("ws://127.0.0.1:8000/ws/search/");
+  // let socket = null;
+
+
   // const socket = new WebSocket.w3cwebsocket(
   //   "ws://5452-27-147-232-86.ngrok-free.app/ws/search/"
   // );
 
-  useEffect(() => {
-    const socket = new WebSocket(
-      "wss://5452-27-147-232-86.ngrok-free.app/ws/search/"
-    );
+  // useEffect(() => {
+    // const socket = new WebSocket(
+      // "wss://5452-27-147-232-86.ngrok-free.app/ws/search/"
+    // );
+    const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/search/");
 
     socket.onopen = () => {
       console.log("WebSocket connected");
@@ -142,7 +146,14 @@ const Socket = () => {
     };
 
     socket.onmessage = (message) => {
-      console.log("Received message:", message.data);
+      console.log("Received message:", JSON.parse(message.data));
+
+
+      if(JSON.parse(message.data)?.type === "data") {
+        console.log("search result");
+        setData([...data, ...JSON.parse(message.data)?.items || []]);
+        handleProducts(JSON.parse(message.data)?.items || []);
+      }
 
       // setMessages([...messages, message.data]);
       // Handle incoming messages from the server
@@ -157,22 +168,33 @@ const Socket = () => {
       console.log("WebSocket closed");
       // Handle WebSocket closure
     };
-  }, []);
+  // }, []);
+
+  // const sendMessage = () => {
+  //   console.log("sending message");
+  //   socket.send(JSON.stringify({ query: 'apple m1'}));
+  //   // socket.send(JSON.stringify({ query: newMessage }));
+  // };
+
 
   const sendMessage = () => {
-    console.log("sending message");
-    socket?.send(JSON.stringify({ query: newMessage }));
-    // socket.send(JSON.stringify({ query: newMessage }));
+    if (socket && socket.readyState === socket.OPEN) {
+      console.log("sending message");
+      socket.send(JSON.stringify({ query: newMessage }));
+    } else {
+      console.error("WebSocket not connected");
+    }
   };
+  // console.log("messages", messages);
 
-  console.log("messages", messages);
 
+  console.log("final data", data);
   return (
     <div className="my-5">
       <div className="flex gap-1">
         <Input
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
         />
 
         <Button onClick={sendMessage}>Send</Button>

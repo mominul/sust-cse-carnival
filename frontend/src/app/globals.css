@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.chatBox::-webkit-scrollbar {
+  width: 0px; /* Set the width of the scrollbar to 0px */
+}
+
+
+.chatBox {
+  scrollbar-width: none; /* Hide the scrollbar in Firefox */
+  overflow-y: scroll;
+}
