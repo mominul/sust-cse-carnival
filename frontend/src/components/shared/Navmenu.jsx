@@ -19,36 +19,36 @@ import Image from "next/image";
 const components = [
   {
     title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    href:'/',
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    href:'/',
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Progress",
-    href: "/docs/primitives/progress",
+    href:'/',
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
+    href:'/',
     description: "Visually or semantically separates content.",
   },
   {
     title: "Tabs",
-    href: "/docs/primitives/tabs",
+    href:'/',
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
     title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    href:'/',
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
@@ -60,7 +60,7 @@ const navData = [
     components: [
       {
         name: "Mechanical Keyboard",
-        href: "?search=keyboard",
+        href:'/',
         description:
           "A mechanical keyboard is a high-performance keyboard with tactile and audio feedback so accurate it allows you to execute every keystroke with lightning-fast precision.",
         picture:
@@ -68,7 +68,7 @@ const navData = [
       },
       {
         name: "Smartphone",
-        href: "/products?search=smartphone",
+        href:'/',
         description:
           "Discover the latest smartphones with advanced features and cutting-edge technology, perfect for staying connected in Bangladesh.",
         picture:
@@ -77,7 +77,7 @@ const navData = [
 
       {
         name: "Laptop",
-        href: "/products?search=laptop",
+        href:'/',
         description:
           "Find the perfect laptop for work, gaming, or multitasking in Bangladesh.",
         picture:
@@ -86,7 +86,7 @@ const navData = [
 
       {
         name: "Pen Drive",
-        href: "/products?search=pen-drive",
+        href:'/',
         description: "Get the best deals on pen drives in Bangladesh.",
         picture:
           "https://www.startech.com.bd/image/cache/catalog/pendrive/apacer/ah360/ah360-500x500.jpg",
@@ -99,7 +99,7 @@ const navData = [
     components: [
       {
         name: "Daraz",
-        href: "/shops?search=daraz",
+        href:'/',
         description:
           "Shop online from Daraz, the largest online marketplace in Bangladesh.",
         picture:
@@ -107,7 +107,7 @@ const navData = [
       },
       {
         name: "Vibe Gaming",
-        href: "/shops?search=vibe-gaming",
+        href:'/',
         description:
           "Vibe Gaming is the leading gaming accessories and peripherals store in Bangladesh.",
         picture:
@@ -116,7 +116,7 @@ const navData = [
 
       {
         name: "Walton",
-        href: "/shops?search=walton",
+        href:'/',
         description:
           "Walton is a leading electronics brand in Bangladesh, offering a wide range of home appliances, smartphones, and more.",
         picture:
@@ -124,7 +124,7 @@ const navData = [
       },
       {
         name: "Startech",
-        href: "/shops?search=startech",
+        href:'/',
         description:
           "Startech is a leading computer hardware and accessories store in Bangladesh.",
         picture:
@@ -132,7 +132,7 @@ const navData = [
       },
       {
         name: "IDLC",
-        href: "/shops?search=idlc",
+        href:'/',
         description:
           "IDLC is a leading financial institution in Bangladesh, offering a wide range of financial products and services.",
         picture:

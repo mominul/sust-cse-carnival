@@ -21,7 +21,14 @@ class ChatConsumer(JsonWebsocketConsumer):
         pass
     
     def receive_json(self, content):
+        tipe = content['type']
         query = content['query']
+
+        if tipe == 'info':
+            print(query)
+            return
+        
+        
         self.conversation.append({"role": "user", "content": query})
         completion = self.client.chat.completions.create(
             model="gpt-4", 

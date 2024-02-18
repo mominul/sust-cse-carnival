@@ -3,6 +3,9 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 
+import { Toaster } from "@/components/ui/sonner"
+ 
+
 // const inter = Inter({ subsets: ["latin"] });
 const ubuntu = Ubuntu({ subsets: ["latin"], weight: "400" });
 
@@ -23,6 +26,8 @@ export default function RootLayout({ children }) {
 
         {children}
 
+
+<Toaster position='bottom-left' />
         {/* <Footer /> */}
       </body>
     </html>

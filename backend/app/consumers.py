@@ -28,7 +28,7 @@ class SearchConsumer(JsonWebsocketConsumer):
         results_queue = Queue()
 
         tasks = [
-            Process(target=scrape_website, args=(query, scrape_ryans, results_queue)),
+            #Process(target=scrape_website, args=(query, scrape_ryans, results_queue)),
             Process(target=scrape_website, args=(query, scrape_startech, results_queue)),
             Process(target=scrape_website, args=(query, scrape_pickaboo, results_queue)),
         ]
@@ -43,7 +43,8 @@ class SearchConsumer(JsonWebsocketConsumer):
                 # Send the data
                 self.send_json(content={
                     "type": "data",
-                    "items": items
+                    "items": items,
+                    "count": sources
                 })
                 sources += 1
             except:
