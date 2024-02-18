@@ -21,7 +21,7 @@ const Header = () => {
             <Image
               height={100}
               width={200}
-              className="w-12 sm:w-16"
+              className="w-12 sm:w-20"
               src={logo}
               alt="logo"
             />

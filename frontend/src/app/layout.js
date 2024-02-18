@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/sonner"
 const ubuntu = Ubuntu({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
-  title: "Best Deal",
+  title: "Shop Smart",
   description: "Get the best deal on your favorite products.",
 
   // icons: {

@@ -27,6 +27,8 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Link from "next/link";
 
 
+const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/search/");
+
 const HomeContainer = () => {
   // const { toast } = useToast()
 
@@ -36,6 +38,9 @@ const HomeContainer = () => {
 
   const [loading, setLoading] = useState(false);
   const [filterBy, setFilterBy] = useState("");
+
+
+  console.log('filterBy', filterBy)
 
 
   const handleFilter = (filter) => {
@@ -74,58 +79,68 @@ const HomeContainer = () => {
   }
 
 
-  const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/search/");
+  // const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/search/");
 
-  socket.onopen = () => {
-    console.log("WebSocket connected");
-    // You may send an initial message here if required
-    // socket.send(JSON.stringify({ query: "Initial message" }));
-  };
+  useEffect(()=>{
+    // socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/search/");
 
-  socket.onmessage = async (message) => {
-    // console.log("Received message:", JSON.parse(message.data));
+    //  console.log('socket', socket)
 
-    setLoading(true)
 
-    
-
-      if(JSON.parse(message.data)?.type === "data") {
-        // console.log("search result");
-        // setData([...data, ...JSON.parse(message.data)?.items || []]);
-
-        let newProducts = await JSON.parse(message.data)?.items 
-
-        const oldProducts = JSON.parse(localStorage.getItem('products')) || []
-
-        newProducts = [...oldProducts, ...newProducts]
-
-        localStorage.setItem('products', JSON.stringify(newProducts))
-
-        // console.log('newProducts', newProducts)
-
-        handleProducts([
-         ...JSON.parse(localStorage.getItem('products')),...newProducts
-        ]);
-      }
+     socket.onopen = () => {
+      console.log("WebSocket connected");
+      // You may send an initial message here if required
+      // socket.send(JSON.stringify({ query: "Initial message" }));
+    };
   
-      if(JSON.parse(message.data)?.type !== "data") {
-        setLoading(false)
-      }
+    socket.onmessage = async (message) => {
+      // console.log("Received message:", JSON.parse(message.data));
+  
+      setLoading(true)
+  
+      
+  
+        if(JSON.parse(message.data)?.type === "data") {
+          // console.log("search result");
+          // setData([...data, ...JSON.parse(message.data)?.items || []]);
+  
+          let newProducts = await JSON.parse(message.data)?.items 
+  
+          const oldProducts = JSON.parse(localStorage.getItem('products')) || []
+  
+          newProducts = [...oldProducts, ...newProducts]
+  
+          localStorage.setItem('products', JSON.stringify(newProducts))
+  
+          // console.log('newProducts', newProducts)
+  
+          handleProducts([
+           ...JSON.parse(localStorage.getItem('products')),...newProducts
+          ]);
+        }
     
+        if(JSON.parse(message.data)?.type !== "data") {
+          setLoading(false)
+        }
+      
+  
+    };
+  
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+      setLoading(false)
+      // Handle WebSocket errors
+    };
+  
+    socket.onclose = () => {
+      console.log("WebSocket closed");
+      setLoading(false)
+      // Handle WebSocket closure
+    };
 
-  };
+  },[newMessage])
 
-  socket.onerror = (error) => {
-    console.error("WebSocket error:", error);
-    setLoading(false)
-    // Handle WebSocket errors
-  };
 
-  socket.onclose = () => {
-    console.log("WebSocket closed");
-    setLoading(false)
-    // Handle WebSocket closure
-  };
 // }, []);
 
 // const sendMessage = () => {
@@ -299,7 +314,7 @@ const HomeSearchAndFilter = ({search, loading, handleSearch, sendMessage, handle
         <h1 className=" text-center sm:text-start text-2xl font-semibold">All Products</h1>
       </div>
 
-      <div>
+      <div className="flex gap-2">
       <div className="my-5">
       <form onSubmit={(e)=>{
         e.preventDefault()
@@ -326,8 +341,19 @@ type="text"
         {/* <button type="submit" className="px-5 h-10 border rounded-lg" onClick={sendMessage}>Send</button> */}
     
     
+
+        <div>
+        <select value={filterBy} onChange={(e)=> handleFilter(e.target.value)} className="bg-inherit px-2 py-2">
+          
+          <option value="">Sort By</option>
+          <option value="price">Price</option>
+          <option value="name">Name</option>
+        </select>
+      </div>
     
       </form>
+
+  
 
    
     </div>
@@ -386,10 +412,13 @@ const LoadingSkeleton = () => {
   );
 };
 
-
+const chatSocket = new W3CWebSocket("ws://127.0.0.1:8000/ws/chat/");
 
 
 const ChatPrompt = () => {
+
+  let socket = chatSocket
+
   const [isOpen, setIsOpen] = useState(false); // State to control the visibility of the chat prompt
 
   const [messages, setMessages] = useState([]); // State to store the messages
@@ -399,7 +428,7 @@ const ChatPrompt = () => {
   const [botClosed, setBotClosed] = useState(false);
 
 
-  const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/chat/");
+  // const socket = new W3CWebSocket("ws://127.0.0.1:8000/ws/chat/");
 
 
 
@@ -421,7 +450,12 @@ const ChatPrompt = () => {
   
     setMessages([]); // Clear the messages
 
+
+    socket.send(JSON.stringify({ query: JSON.stringify('') , type: "close" }));
+
     toast.success('Thanks for chatting with us', {position: 'top-left'})
+
+    
   
   }
 
@@ -439,7 +473,8 @@ const ChatPrompt = () => {
 
     setLoading(true)
 
-    setMessages([...messages, newMessage, JSON.parse(message.data)?.response]);
+    // setMessages([...messages, newMessage, JSON.parse(message.data)?.response]);
+    setMessages([...messages, JSON.parse(message.data)?.response])
     setLoading(false)
     setNewMessage('')
     setBotClosed(false)
